@@ -48,7 +48,9 @@ class Service extends Directives with JsonSupport {
 	implicit val materializer = ActorMaterializer()
 	implicit val executionContext = system.dispatcher
 
-	val numbers = Source.fromIterator(() => Iterator.continually(Random.nextInt()))
+	val intIterator = Stream.from(1).toIterator
+
+	val numbers = Source.fromIterator(() => Iterator.continually(intIterator.next))
 
 	val route = {
 		get {
